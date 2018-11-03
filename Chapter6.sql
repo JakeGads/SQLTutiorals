@@ -1,22 +1,22 @@
 --drops all tables
-Drop Table Student 			CASCADE CONSTANT
-Drop Table Faculty 			CASCADE CONSTANT
-Drop Table Course 			CASCADE CONSTANT
-Drop Table Qualifed 		CASCADE CONSTANT
-Drop Table Sections 		CASCADE CONSTANT
-Drop Table Registration 	CASCADE CONSTANT
+Drop Table Student 			CASCADE CONSTANT;
+Drop Table Faculty 			CASCADE CONSTANT;
+Drop Table Course 			CASCADE CONSTANT;
+Drop Table Qualifed 		CASCADE CONSTANT;
+Drop Table Sections 		CASCADE CONSTANT;
+Drop Table Registration 	CASCADE CONSTANT;
 
 --creates the tables
 --#1
 Create Table Student(
-	Student_ID		integer(),
+	Student_ID		Number(),
 	Student_Name	varchar2(25),
 
 	Constraint student_pk Primary Key (Student_ID)
 );
 
 Create Table Faculty(
-	Faculty_ID		integer(),
+	Faculty_ID		Number(),
 	Faculty_Name	varchar2(25),
 
 	Constraint faculty_pk Primary Key (Faculty_ID)
@@ -30,33 +30,33 @@ Create Table Course(
 );
 
 Create Table Qualifed(
-	--Faculty_ID		Number(5),
-	--Course_ID		varchar2(10),
+	Faculty_ID		Number(5),
+	Course_ID		varchar2(10),
 	DateQualified	Date(),
 	
 	Constraint Qualifed_pk 	Primary Key (Faculty_ID,Course_ID),
-	Constraint Course_ID 	Foreign Key (Course_ID) 	REFERENCES Course(Course_ID),
-	Constraint Faculty_ID 	Foreign Key (Faculty_ID) 	REFERENCES Faculty(Faculty_ID)
+	Constraint Course_fk 	Foreign Key (Course_ID) 	REFERENCES Course(Course_ID),
+	Constraint Faculty_fk 	Foreign Key (Faculty_ID) 	REFERENCES Faculty(Faculty_ID)
 );
 
 Create Table Sections(
-	Section_No		integer(),
+	Section_No		Number(),
 	Semester		varchar2(10),
-	--Course_ID		varchar2(10),
+	Course_ID		varchar2(10)	Not Null, --3
 	
 	Constraint Sections_pk 	Primary Key (Sections_No,Semester, Course_ID),
-	Constraint Course_ID 	Foreign Key (Course_ID) 	REFERENCES Course(Course_ID)
+	Constraint Course_fk 	Foreign Key (Course_ID) 	REFERENCES Course(Course_ID)
 );
 
 Create Table Registration(
-	Student_ID		integer(),
+	Student_ID		Number(),
 	Section_No		varchar2(10),
 	Semester		varchar2(10),
 	
 	Constraint Registration_pk 	Primary Key (Student_ID,Section_No, Semester),
-	Constraint Student_ID		Foreign Key (Student_ID) 	REFERENCES Student(Student_ID),
-	Constraint Section_No		Foreign Key (Section_No) 	REFERENCES Sections(Section_No),
-	Constraint Semester			Foreign Key (Semester) 		REFERENCES Sections(Semester)
+	Constraint Student_fk		Foreign Key (Student_ID) 	REFERENCES Student(Student_ID),
+	Constraint Section_fk		Foreign Key (Section_No) 	REFERENCES Sections(Section_No),
+	Constraint Semester_fk		Foreign Key (Semester) 		REFERENCES Sections(Semester)
 );
 
 
@@ -112,3 +112,16 @@ Insert Into Course Values
 ('ISM 3112', 'Syst Design'),
 ('ISM 4212', 'Databases'),
 ('ISM 4930', 'Networking');
+
+--4
+--a
+Alter Table Student
+Add Class_ varchar2(20);
+
+--b
+Drop Table Registration 	CASCADE CONSTANT;
+
+--c
+Alter Table Falculty
+Update Faculty_Name	varchar2(40)
+ 
