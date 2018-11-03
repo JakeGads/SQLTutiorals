@@ -124,4 +124,11 @@ Drop Table Registration 	CASCADE CONSTANT;
 --c
 Alter Table Falculty
 Update Faculty_Name	varchar2(40)
- 
+
+--5
+--a
+Insert Into Student Values
+(65798, 'Lopez');
+
+Insert Into Student (Student_ID, Student_Name) Values
+(65798, 'Lopez');
