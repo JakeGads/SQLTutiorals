@@ -132,3 +132,27 @@ Insert Into Student Values
 
 Insert Into Student (Student_ID, Student_Name) Values
 (65798, 'Lopez');
+
+--b
+Delete From Student
+Where Student_Name = 'Lopez';
+
+--c
+Update Course
+Set Course_Name = 'Introduction to Relational Databases'
+Where Course_ID = 'ISM 4212';
+
+
+--6
+--a
+SELECT *
+FROM Student
+WHERE Student_ID BETWEEN 0 AND 50000;
+
+--b
+SELECT Faculty_Name
+FROM Faculty
+WHERE Faculty_ID = 4756;
+
+--c
+
