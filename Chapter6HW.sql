@@ -1,10 +1,11 @@
     --drops all tables
-    Drop Table Student 			CASCADE CONSTRAINTS;
-    Drop Table Faculty 			CASCADE CONSTRAINTS;
-    Drop Table Course 			CASCADE CONSTRAINTS;
-    Drop Table Qualifed 		CASCADE CONSTRAINTS;
-    Drop Table Sections 		CASCADE CONSTRAINTS;
-    Drop Table Registration 	CASCADE CONSTRAINTS;
+    Drop Table  Student 		CASCADE CONSTRAINTS;
+    Drop Table  Faculty 		CASCADE CONSTRAINTS;
+    Drop Table  Course 			CASCADE CONSTRAINTS;
+    Drop Table  Qualifed 		CASCADE CONSTRAINTS;
+    Drop Table  Sections 		CASCADE CONSTRAINTS;
+    Drop Table  Registration 	CASCADE CONSTRAINTS;
+    Drop View   Example_View;
     
     --creates the tables
     --#1
@@ -58,7 +59,6 @@
         Constraint Registration_fk		Foreign Key (Student_ID) 	REFERENCES Student(Student_ID),
         Constraint Registration_fk1		Foreign Key (Sections_No) 	REFERENCES Sections(Sections_No)
     );
-
 
 --populates the tables
 --#2
@@ -139,8 +139,7 @@ Insert Into Registration
 Values(66324, 2713, 'I-2008');
 
 --2
-Select *
-From Student
+create view Example_View as select Student_Name, Student_ID from Student;
 --4
 --a
 Alter Table Student Add Class VarChar2(50);
@@ -179,7 +178,7 @@ Where Course_ID = 'ISM 4212';
 --a
 SELECT *
 FROM Student
-WHERE Student_ID BETWEEN 0 AND 50000;
+WHERE Student_ID < 50000;
 
 --b
 SELECT Faculty_Name
@@ -204,4 +203,35 @@ Where DateQualified > TO_DATE('1993', 'yyyy');
 
 --8
 --a
+Select Student_ID
+From Registration
+Where Sections_No=2715 or Sections_No=2714;
 
+--b
+select distinct Faculty_ID
+from Qualifed
+where Course_ID != 'ISM 3112' and course_ID != 'ISM 3113';
+
+--c
+select distinct Course_ID
+from Sections
+where Semester in ('I-2008');
+
+--Problem 9
+--a
+select distinct Course_ID
+from Sections;
+--b
+Select Student_Name
+from Student
+order by Student_Name;
+--c
+select Sections_No,Semester,Student_ID
+from registration
+where Semester='I-2008'
+group by Sections_No,Semester,Student_ID
+order by Sections_No,Student_ID;
+--d
+select Course_ID,Course_Name
+from course
+order by Course_ID;
