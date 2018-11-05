@@ -40,8 +40,8 @@
     );
     
     Create Table Sections(
-        Sections_No		Integer       Not Null,
-        Semester		varchar2(10)    Not Null,
+        Sections_No		Integer,
+        Semester		varchar2(10),
         Course_ID		varchar2(10)	Not Null, --3
         
         Constraint Sections_pk 	Primary Key (Sections_No),
@@ -121,10 +121,10 @@ Insert Into Sections
 Values(2713, 'I-2008', 'ISM 3113');
 
 Insert Into Sections
-Values(2712, 'I-2008', 'ISM 4212');
+Values(2714, 'I-2008', 'ISM 4212');
 
 Insert Into Sections
-Values(2712, 'I-2008', 'ISM 4930');
+Values(2715, 'I-2008', 'ISM 4930');
 
 Insert Into Registration
 Values(38214, 2714, 'I-2008');
@@ -143,13 +143,10 @@ Select *
 From Student
 --4
 --a
-Alter Table Student
-Add Class_ varchar2(20);
-
-ALTER TABLE Student DROP COLUMN Class_; --this drops the recently created  column so the code can just run
+Alter Table Student Add Class VarChar2(50);
 
 --b
-Drop Table Registration 	CASCADE CONSTRAINTS;
+--Drop Table Registration 	CASCADE CONSTRAINTS;
 
 --c
 Alter Table Faculty
@@ -190,6 +187,21 @@ FROM Faculty
 WHERE Faculty_ID = 4756;
 
 --c
-
+Select *
+From Sections
+Where Semester = 'I-2008' and rowNum = 1
+ORDER BY Sections_No Asc;
 --7
 --a
+Select *
+From Registration
+Where Semester = 'I-2008' and Sections_No = 2714;
+
+--b
+Select *
+From Qualifed
+Where DateQualified > TO_DATE('1993', 'yyyy');
+
+--8
+--a
+
