@@ -10,21 +10,21 @@ create table tutor(
 );
 
 create table Student(
-    student_ID      integer,
+    studentID      integer,
     read            number,    
-    Constraint student_pk Primary Key (studnet_ID)
+    Constraint student_pk Primary Key (studentID)
 );
 
 create table Match_History(
     Match_ID    integer,
     tutor_ID    integer,
-    student_ID  integer,
+    studentID  integer,
     startDate   date,
     endDate     date,
     
     Constraint Match_History_pk 	Primary Key (Match_ID),
     Constraint Match_History_fk 	Foreign Key (tutor_ID) 	    REFERENCES tutor(tutor_ID),
-    Constraint Match_History_fk1 	Foreign Key (student_ID) 	REFERENCES Student(student_ID)
+    Constraint Match_History_fk1 	Foreign Key (studentID) 	REFERENCES Student(studentID)
 );
 
 /*
@@ -72,6 +72,15 @@ values(3006, 7.8);
 Insert Into student
 values(3007, 1.5);
 
---go back to 1 and 4
+--go back to 1 and 4 and 7
 Insert Into Match_History
 values(2, 101, 3001, TO_DATE('01-15-2008','MM-DD-YYYY'), TO_DATE('05-15-2008','MM-DD-YYYY')); 
+Insert Into Match_History
+values(3, 102, 3002, TO_DATE('02-10-2008','MM-DD-YYYY'), TO_DATE('03-01-2008','MM-DD-YYYY'));
+Insert Into Match_History
+values(5, 103, 3004, TO_DATE('06-01-2008','MM-DD-YYYY'), TO_DATE('06-15-2008','MM-DD-YYYY'));
+Insert Into Match_History
+values(6, 104, 3005, TO_DATE('06-01-2008','MM-DD-YYYY'), TO_DATE('06-15-2008','MM-DD-YYYY'));
+
+Insert Into Match_History (Match_id, Tutor_id, studentID, startDate)
+values(7, 104, 3006, TO_DATE('01-15-2008','MM-DD-YYYY'));
