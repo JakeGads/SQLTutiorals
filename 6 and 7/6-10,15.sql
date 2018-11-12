@@ -98,7 +98,7 @@ select TUTOR_ID , CERT_DATE ,STATUS  from tutor where status != 'Temp Stop';
 select tutor_id from tutor where tutor_id not in (select tutor_id from match_history);
 
 --12 How many students were matched with someone in the first five months of the year?
-select MATCH_ID , TUTOR_ID , STUDENTID , STARTDATE , ENDDATE  from match_history where startdate <  TO_DATE('06-2008', 'MM-YYYY');
+select MATCH_ID , TUTOR_ID , STUDENTID , STARTDATE , ENDDATE  from match_history where startdate <  TO_DATE('06', 'MM');
 
 --13 Which student has the highest Read score?
 select max(read) from student;
