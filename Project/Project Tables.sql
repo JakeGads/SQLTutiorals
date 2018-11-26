@@ -17,6 +17,9 @@ Create Table Person(
 	Person_ID	varchar2(20),
 	Name		varchar2(30),
 	Street		varchar2(30),
+    City        varchar2(30),
+    State       varchar2(30),
+    Zip         varchar2(30),
 	PhoneNum	varchar2(30),
 	
 	Constraint Person_pk Primary Key (Person_ID)
