@@ -35,3 +35,4 @@ select d.department_id As ID, d.department_name AS DNAME, d.manager_id AS Manage
 from departments d, departments m
 where d.department_id = m.department_id
 and d.manager_id is not NULL
+
