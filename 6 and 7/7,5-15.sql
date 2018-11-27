@@ -1,7 +1,7 @@
 Drop Table  tutor 		    CASCADE CONSTRAINTS;
 Drop Table  student         CASCADE CONSTRAINTS;
 Drop Table  Match_History   CASCADE CONSTRAINTS;
-
+Drop Table  Tutor_Report    CASCADE CONSTRAINTS;
 create table tutor(
     tutor_ID    integer,
     cert_date   date,
@@ -89,3 +89,14 @@ Insert Into Match_History (Match_id, Tutor_id, studentID, startDate)
 values(4, 106, 3003, TO_DATE('05-28-2008','MM-DD-YYYY'));
 Insert Into Match_History (Match_id, Tutor_id, studentID, startDate)
 values(1, 100, 3000, TO_DATE('01-10-2008','MM-DD-YYYY'));
+
+Insert Into Tutor_Report
+values(1, to_date('06/08', 'MM/YY'), 8, 4);
+Insert Into TutorReport
+values(4, to_date('06/08', 'MM/YY'), 8, 6);
+Insert Into TutorReport
+values(5, to_date('06/08', 'MM/YY'), 4, 4);
+Insert Into TutorReport
+values(4, to_date('07/08', 'MM/YY'), 10, 5);
+Insert Into TutorReport
+values(1, to_date('07/08', 'MM/YY'), 4, 2);
