@@ -27,50 +27,69 @@ Create Table Person(
 
 Create Table Employee(
 	Employee_ID		varchar2(20),
-	Constraint Employee_pk Primary Key (Employee_ID)
+	Person_ID		varchar2(20),
+	Constraint Employee_fk 	Foreign Key (Person_ID) 	REFERENCES Person(Person_ID),
+	Constraint Employee_pk 	Primary Key (Employee_ID)
+	
 );
 
 Create Table Nurse_practitioner(
 	NP_ID		varchar2(20),
+	Employee_ID		varchar2(20),
+	Constraint Nurse_practitioner_fk 	Foreign Key (Employee_ID) 	REFERENCES Person(Employee_ID),
 	Constraint Nurse_practitioner_pk Primary Key (NP_ID)
+	
 );
 
 Create Table Registered_Nurse(
 	Registered_Nurse_ID		varchar2(20),
+	Employee_ID		varchar2(20),
+	Constraint Registered_Nurse_fk 	Foreign Key (Employee_ID) 	REFERENCES Person(Employee_ID),
 	Constraint Registered_Nurse_pk Primary Key (Registered_Nurse_ID)
 );
 
 Create Table Pharmacist(
 	Pharmacist_ID		varchar2(20),
+	Employee_ID			varchar2(20),
+	Constraint Pharmacist_fk 	Foreign Key (Employee_ID) 	REFERENCES Person(Employee_ID),
 	Constraint Pharmacist_pk Primary Key (Pharmacist_ID)
 );
 
 Create Table Medical_Technician(
 	MT_ID				varchar2(20),
+	Employee_ID		varchar2(20),
+	Constraint Medical_Technician_fk 	Foreign Key (Employee_ID) 	REFERENCES Person(Employee_ID),
 	Constraint Medical_Technician_pk Primary Key (MT_ID)
 );
 
 Create Table Physician(
 	Physician_ID		varchar2(20),
     Speciality          varchar2(20),
-    
+    Employee_ID		varchar2(20),
+	Constraint Physician_fk 	Foreign Key (Employee_ID) 	REFERENCES Person(Employee_ID),
     Constraint Speciality_Check check (speciality = 'Physician' or speciality = 'Surgeon' or speciality = 'Pediatrician'),
 	Constraint Physician_pk Primary Key (Physician_ID)
 );
 
 Create Table Office_Admin(
     OA_ID               varchar2(20),
+	Employee_ID		varchar2(20),
+	Constraint Office_Admin_fk 	Foreign Key (Employee_ID) 	REFERENCES Person(Employee_ID),
     Constraint Office_Admin_pk Primary Key (OA_ID)
 );
 
 Create Table Receptionist(
     R_ID                varchar2(20),
+	Employee_ID		varchar2(20),
+	Constraint Receptionist_fk 	Foreign Key (Employee_ID) 	REFERENCES Person(Employee_ID),
     Constraint Receptionist_pk Primary Key (R_ID)
 );
 
 Create Table Book_Keeper(
-    BK_ID               varchar2(20),
-    Constraint BookKeeper Primary Key (BK_ID)
+    Book_Keeper_ID               varchar2(20),
+	Employee_ID		varchar2(20),
+	Constraint Book_Keeper_fk 	Foreign Key (Employee_ID) 	REFERENCES Person(Employee_ID),
+    Constraint Book_Keeper Primary Key (Book_Keeper_ID)
 );
 
 Create Table Bill(
