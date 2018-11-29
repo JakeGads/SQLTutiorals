@@ -84,11 +84,14 @@ select * from tutor where tutor_id in (select tutor_id from match_history where 
 --11 Where do you think student and tutor information such as name, address, phone, and e-mail should be kept? Write the necessary SQL commands to capture this information.
 Drop Table Student_Contact_Sheet    CASCADE CONSTRAINTS;
 Create Table Student_Contact_Sheet(
-    studentId  varchar2(20),
-    name        varchar2(20),
-    address     varchar2(20),
-    phone       varchar2(20),
-    email       varchar2(20),
+    studentId   INTEGER,
+    name        varchar2(45),
+    street      varchar2(45),
+    city        varchar2(45),
+    state       varchar2(45),
+    zip         varchar2(8),
+    phone       varchar2(45),
+    email       varchar2(45),
     
     
     Constraint Student_Contact_Sheet_pk         Primary Key (studentId),
@@ -97,18 +100,18 @@ Create Table Student_Contact_Sheet(
 
 Drop Table Tutor_Contact_Sheet      CASCADE CONSTRAINTS;
 Create Table Tutor_Contact_Sheet(
-    tutortId    varchar2(20),
-    name        varchar2(20),
-    street      varchar2(20),
-    city        varchar2(20),
-    state       varchar2(20),
+    tutor_Id    INTEGER,
+    name        varchar2(45),
+    street      varchar2(45),
+    city        varchar2(45),
+    state       varchar2(45),
     zip         varchar2(8),
-    phone       varchar2(20),
-    email       varchar2(20),
+    phone       varchar2(45),
+    email       varchar2(45),
     
     
-    Constraint Tutor_Contact_Sheet_pk         Primary Key (tutorId),
-    Constraint Tutor_Contact_Sheet_fk 	    Foreign Key (tutorId) 	REFERENCES tutor(tutorId)
+    Constraint Tutor_Contact_Sheet_pk         Primary Key (tutor_Id),
+    Constraint Tutor_Contact_Sheet_fk 	    Foreign Key (tutor_Id) 	REFERENCES tutor(tutor_Id)
 );
 
 Insert Into Student_Contact_Sheet VALUES(3000, 'Mick Gadaleta', '824 Forrest St', 'Lansdale','PA','19446','215-362-7606','mick.gads@gmail.com');
@@ -127,14 +130,16 @@ Insert Into Tutor_Contact_Sheet Values (103, 'Susan Anthony', '2755 Station Ave'
 Insert Into Tutor_Contact_Sheet Values (104, 'Maria Arango', '2755 Station Ave', 'Center Valley', 'PA', '18034', '1260', 'Maria.Arango@desales.edu');
 Insert Into Tutor_Contact_Sheet Values (105, 'Jane Arenas', '2755 Station Ave', 'Center Valley', 'PA', '18034', '1489', 'Jane.Arenas@desales.edu');
 Insert Into Tutor_Contact_Sheet Values (106, 'Steven Arner', '2755 Station Ave', 'Center Valley', 'PA', '18034', '1666', 'Steven.Arner@desales.edu');
-Insert Into Tutor_Contact_Sheet Values (107, 'Wendy Badman', '2755 Station Ave', 'Center Valley', 'PA', '18034', '1327', 'Wendy.Badman@desales.edu');
+
 --12 List all active students in June by name. (Make up names and other data if you are actually building a prototype database.) 
 --Include the number of hours students received tutoring and how many lessons they completed.
-
+select student.name, tr.hours, tr.lessons
+from student_contact_sheet student
+INNER JOIN Match_History mh ON mh.studentid = student.studentid
+INNER JOIN tutor_report tr ON tr.match_id = mh.match_id
+WHERE tr.month = TO_DATE('05', 'mm');
 --13 Which tutors, by name, are available to tutor? Write the SQL command.
-select emp.employee_id, start_date, emp.job_id
-from employees emp FULL OUTER JOIN job_history jh
-On emp.employee_id = jh.employee_id;
+
 
 
 
