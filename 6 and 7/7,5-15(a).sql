@@ -131,128 +131,19 @@ Insert Into Tutor_Contact_Sheet Values (104, 'Maria Arango', '2755 Station Ave',
 Insert Into Tutor_Contact_Sheet Values (105, 'Jane Arenas', '2755 Station Ave', 'Center Valley', 'PA', '18034', '1489', 'Jane.Arenas@desales.edu');
 Insert Into Tutor_Contact_Sheet Values (106, 'Steven Arner', '2755 Station Ave', 'Center Valley', 'PA', '18034', '1666', 'Steven.Arner@desales.edu');
 
+
 --12 List all active students in June by name. (Make up names and other data if you are actually building a prototype database.) 
 --Include the number of hours students received tutoring and how many lessons they completed.
 select student.name, tr.hours, tr.lessons
 from student_contact_sheet student
 INNER JOIN Match_History mh ON mh.studentid = student.studentid
 INNER JOIN tutor_report tr ON tr.match_id = mh.match_id
-WHERE tr.month = TO_DATE('05', 'mm');
+WHERE tr.month = TO_DATE('06', 'mm');
 --13 Which tutors, by name, are available to tutor? Write the SQL command.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+select name from tutor_contact_sheet where tutor_id not in (select tutor_id from tutor where status = 'Active');
+
+--14 Which tutor needs to be reminded to turn in reports? Write the SQL command.
+select UNIQUE t.name
+from  tutor_contact_sheet t
+INNER JOIN Match_History mh ON mh.tutor_id = t.tutor_id
+where mh.match_id not in (select match_id from tutor_report);
