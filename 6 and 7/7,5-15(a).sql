@@ -71,7 +71,7 @@ Insert Into Tutor_Report values(1, to_date('07/08', 'MM/YY'), 4, 2);
 --7 add Math Score to students table
 Alter Table student add math_score number;
 
---8 add subeject to tutors limit
+--8 add subject to tutors limit
 Alter Table tutor add subject varchar2(30);
 Alter Table tutor add CONSTRAINT subject_check  check (subject in ( 'Reading', 'Math', 'ESL'));
 
