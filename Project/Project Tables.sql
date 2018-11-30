@@ -182,6 +182,7 @@ create table test
 	constraint test_pk primary key (test_ID)
 );
 
+--Talk about this one
 create table prescription
 (
 	prescription_ID varchar2(20),
@@ -198,8 +199,9 @@ create table visit
 	visit_ID  varchar2(20),
 	date	  date,
 	type	  varchar2(20)
-	walkin, (MAKE TABLE????)
-	scheduled appointment (MAKE TABLE????)
+	-- we can me these constrants
+	--walkin, (MAKE TABLE????)
+	--scheduled appointment (MAKE TABLE????)
 	contraint visit_fk foreign key (visit_ID) references patient (patient_ID),
 	constraint visit_pk primary key (visit_ID) 
 );
