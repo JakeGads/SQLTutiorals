@@ -13,6 +13,7 @@ Drop Table  Bill                CASCADE CONSTRAINTS;
 Drop Table  Room                CASCADE CONSTRAINTS;
 
 --create table
+--will make 100
 Create Table Person(
 	Person_ID	varchar2(20),
 	Name		varchar2(30),
@@ -62,10 +63,17 @@ Create Table Medical_Technician(
 	Constraint Medical_Technician_pk Primary Key (MT_ID)
 );
 
+Create Table Midwives(
+	MW_ID				varchar2(20),
+	Employee_ID			varchar2(20),
+	Constraint Medical_Technician_fk 	Foreign Key (Employee_ID) 	REFERENCES Person(Employee_ID),
+	Constraint Medical_Technician_pk Primary Key (MT_ID)
+);
+
 Create Table Physician(
 	Physician_ID		varchar2(20),
-    Speciality          varchar2(20),
     Employee_ID		varchar2(20),
+	Speciality          varchar2(20),
 	Constraint Physician_fk 	Foreign Key (Employee_ID) 	REFERENCES Person(Employee_ID),
     Constraint Speciality_Check check (speciality = 'Physician' or speciality = 'Surgeon' or speciality = 'Pediatrician'),
 	Constraint Physician_pk Primary Key (Physician_ID)
