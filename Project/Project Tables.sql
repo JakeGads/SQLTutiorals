@@ -1,6 +1,6 @@
 --drop
 --Jake
-Drop Table  Person 			    	CASCADE CONSTRAINTS;
+Drop Table  Person 			CASCADE CONSTRAINTS;
 Drop Table  Employee 		    	CASCADE CONSTRAINTS;
 Drop Table  Nurse_Practitioner  	CASCADE CONSTRAINTS;
 Drop Table  Registered_Nurse    	CASCADE CONSTRAINTS;
@@ -13,14 +13,14 @@ Drop Table  Book_Keeper         	CASCADE CONSTRAINTS;
 Drop Table  Bill                	CASCADE CONSTRAINTS;
 Drop Table  Room                	CASCADE CONSTRAINTS;
 --Lauren 
-drop table 	healthcare 				cascade constraints;
-drop table 	privateHealthCare 		cascade constraints;
-drop table 	governmentalHealthCare 	cascade constraints;
-drop table 	test 					cascade constraints;
-drop table 	prescription 			cascade constraints;
-drop table 	patient 				cascade constraints;
-drop table 	visit 					cascade constraints;
-drop table 	sample 					cascade constraints;
+drop table 	healthcare 			     cascade constraints;
+drop table 	privateHealthCare 		 cascade constraints;
+drop table 	governmentalHealthCare 	 cascade constraints;
+drop table 	test 				     cascade constraints;
+drop table 	prescription 		     cascade constraints;
+drop table 	patient 			     cascade constraints;
+drop table 	visit 				     cascade constraints;
+drop table 	sample 				     cascade constraints;
 
 --Jake
 --create table
@@ -37,55 +37,66 @@ Create Table Person(
 	Constraint Person_pk Primary Key (Person_ID)
 );
 
-create table patient
-(
+--This is also Lauren's but its been moved up here becuase it make sense for it to be here
+create table patient(
 	patient_ID varchar2(20),
 	Person_ID		varchar2(20),
-	Constraint patient 	Foreign Key (Person_ID) 	REFERENCES Person(Person_ID),
+	Constraint patient_fk 	Foreign Key (Person_ID) 	REFERENCES Person(Person_ID),
 	Constraint patient_pk primary key (patient_ID)
 );
 
 Create Table Employee(
 	Employee_ID		varchar2(20),
+	
 	Person_ID		varchar2(20),
 	Constraint Employee_fk 	Foreign Key (Person_ID) 	REFERENCES Person(Person_ID),
+	
 	Constraint Employee_pk 	Primary Key (Employee_ID)
 	
 );
 
 Create Table Nurse_practitioner(
 	NP_ID		varchar2(20),
+	
 	Employee_ID		varchar2(20),
 	Constraint Nurse_practitioner_fk 	Foreign Key (Employee_ID) 	REFERENCES Employee(Employee_ID),
-	Constraint Nurse_practitioner_pk Primary Key (NP_ID)
 	
+	Constraint Nurse_practitioner_pk Primary Key (NP_ID)
 );
 
 Create Table Registered_Nurse(
 	Registered_Nurse_ID		varchar2(20),
+	
 	Employee_ID		varchar2(20),
 	Constraint Registered_Nurse_fk 	Foreign Key (Employee_ID) 	REFERENCES Employee(Employee_ID),
+	
 	Constraint Registered_Nurse_pk Primary Key (Registered_Nurse_ID)
 );
 
 Create Table Pharmacist(
 	Pharmacist_ID		varchar2(20),
+	
 	Employee_ID			varchar2(20),
 	Constraint Pharmacist_fk 	Foreign Key (Employee_ID) 	REFERENCES Employee(Employee_ID),
+	
 	Constraint Pharmacist_pk Primary Key (Pharmacist_ID)
 );
 
 Create Table Medical_Technician(
 	MT_ID				varchar2(20),
+	
 	Employee_ID		varchar2(20),
 	Constraint Medical_Technician_fk 	Foreign Key (Employee_ID) 	REFERENCES Employee(Employee_ID),
+	
 	Constraint Medical_Technician_pk Primary Key (MT_ID)
 );
 
 Create Table Midwives(
 	MW_ID				varchar2(20),
+	
 	Employee_ID			varchar2(20),
 	Constraint Medical_Technician_fk 	Foreign Key (Employee_ID) 	REFERENCES Employee(Employee_ID),
+	
 	Constraint Medical_Technician_pk Primary Key (MT_ID)
 );
 
@@ -100,30 +111,38 @@ Create Table Physician(
 
 Create Table Office_Admin(
     OA_ID               varchar2(20),
+	
 	Employee_ID		varchar2(20),
 	Constraint Office_Admin_fk 	Foreign Key (Employee_ID) 	REFERENCES Employee(Employee_ID),
+	
     Constraint Office_Admin_pk Primary Key (OA_ID)
 );
 
 Create Table Receptionist(
     R_ID                varchar2(20),
+	
 	Employee_ID		varchar2(20),	
 	Constraint Receptionist_fk 	Foreign Key (Employee_ID) 	REFERENCES Employee(Employee_ID),
+	
     Constraint Receptionist_pk Primary Key (R_ID)
 );
 
 Create Table Book_Keeper(
     Book_Keeper_ID               varchar2(20),
+	
 	Employee_ID		varchar2(20),
 	Constraint Book_Keeper_fk 	Foreign Key (Employee_ID) 	REFERENCES Employee(Employee_ID),
+	
     Constraint Book_Keeper Primary Key (Book_Keeper_ID)
 );
 
 Create Table Bill(
     Bill_ID     varchar2(20),
     Bill_Price  number,
+	
     Paitent_ID		varchar2(20),
 	Constraint Bill_fk 	Foreign Key (Paitent_ID) 	REFERENCES Paitent(Paitent_ID),
+	
     Constraint Bill_pk Primary Key (Bill_ID)
 );
 
@@ -147,8 +166,7 @@ Create Table Room(
 );
 
 --Lauren
-create table healthcare
-(
+create table healthcare(
 	Health_Care_ID primarykey varchar2(20),
 	Type 	       varchar2(25),
 	CONSTRAINT Type_Check check(
@@ -156,60 +174,71 @@ create table healthcare
 	Type = 'Private' or
 	Type = 'Governmental'
 	);
-	constraint Health_Care_pk primary key (Health_Care_ID)
 	
+	Employee_ID		varchar2(20),
+	Constraint Book_Keeper_fk 	Foreign Key (Employee_ID) 	REFERENCES Employee(Employee_ID),
+	
+	constraint Health_Care_pk primary key (Health_Care_ID)
 );
 
-create table privateHealthCare
-(
+create table privateHealthCare(
 	PHC_ID  varchar2(20),
 	constraint PHC_pk primary key (PHC_ID)
 	constraint PHC_fk foreign key (Health_Care_ID)
 );
 
-create table governmentalHealthCare
-(
+create table governmentalHealthCare(
 	GHC_ID primarykey varchar2(20),
 	constraint GHC_pk primary key (GHC_ID)
 	constraint GHC_fk foreign key (Health_Care_ID)
 );
 
-create table test
-(
+create table test(
 	test_ID   varchar2(20),
 	type	  varchar2(20),
 	result	  varchar2(50),
+	
+	Paitent_ID		varchar2(20),
+	Constraint test_fk 	Foreign Key (Paitent_ID) 	REFERENCES Paitent(Paitent_ID),
+	
 	constraint test_pk primary key (test_ID)
 );
 
 --Talk about this one
-create table prescription
-(
+create table prescription(
 	prescription_ID varchar2(20),
 	medicine_type 	varchar2(20),
 	amount		int,
 	original_date	date,
 	filled_date	date,
-	constraint prescription_pk primary key (prescription_ID)
-	contraint prescription_fk foreign key (prescription_ID) references patient (patient_ID)
+	
+	Paitent_ID		varchar2(20),
+	Constraint prescription_fk 	Foreign Key (Paitent_ID) 	REFERENCES Paitent(Paitent_ID),
+	
+	constraint prescription_pk primary key (prescription_ID),
+	
 );
 
-create table visit
-(
+create table visit(
 	visit_ID  varchar2(20),
 	date	  date,
-	type	  varchar2(20)
+	type	  varchar2(20),
+	
+	Paitent_ID		varchar2(20),
+	Constraint visit_fk 	Foreign Key (Paitent_ID) 	REFERENCES Paitent(Paitent_ID),
 	-- we can me these constrants
 	--walkin, (MAKE TABLE????)
 	--scheduled appointment (MAKE TABLE????)
-	contraint visit_fk foreign key (visit_ID) references patient (patient_ID),
+	--contraint visit_fk foreign key (visit_ID) references patient (patient_ID),
 	constraint visit_pk primary key (visit_ID) 
 );
 
-create table sample
-(
-	sample_ID primary key varchar2(20),
-	type	varcahr2(20)
-	contraint sample_fk foreign key (sample_ID) references patient (patient_ID),
+create table sample(
+	sample_ID varchar2(20),
+	type	varchar2(20),
+	
+	Paitent_ID		varchar2(20),
+	Constraint sample_fk 	Foreign Key (Paitent_ID) 	REFERENCES Paitent(Paitent_ID),
+	
 	constraint sample_pk primary key (sample_ID)
 );
