@@ -75,7 +75,9 @@ Alter Table student add math_score number;
 Alter Table tutor add subject varchar2(30);
 Alter Table tutor add CONSTRAINT subject_check  check (subject in ( 'Reading', 'Math', 'ESL'));
 
---9 allow tutors to tutor more than one suject
+--9 see end
+
+
 
 --10 command to find any tutors who have not sent a report for july
 select * from tutor where tutor_id in (select tutor_id from match_history where match_id not in(select match_id from tutor_report));
@@ -147,3 +149,20 @@ select UNIQUE t.name
 from  tutor_contact_sheet t
 INNER JOIN Match_History mh ON mh.tutor_id = t.tutor_id
 where mh.match_id not in (select match_id from tutor_report);
+
+
+
+
+
+
+
+Drop Table  tutor 		    CASCADE CONSTRAINTS;
+create table tutor(
+    tutor_ID    integer,
+    cert_date   date,
+    status      varchar2(25),
+    subject varchar2(30),
+    
+    CONSTRAINT subject_check  check (subject in ( 'Reading', 'Math', 'ESL')),
+    Constraint tutor_pk Primary Key (tutor_ID, subject)
+);
