@@ -101,7 +101,11 @@ Create Table Midwives(
 	Employee_ID			varchar2(20),
 	Constraint Midwives_fk 	Foreign Key (Employee_ID) 	REFERENCES Employee(Employee_ID),
 	
+<<<<<<< HEAD
 	Constraint Midwives_pk Primary Key (MW_ID)
+=======
+	Constraint Medical_Technician_pk Primary Key (MW_ID)
+>>>>>>> ba1c8f982907257de85264eb2b9b73ae9bf662d6
 );
 
 Create Table Physician(
@@ -171,12 +175,21 @@ Create Table Room(
 
 --Lauren
 create table healthcare(
+<<<<<<< HEAD
 	Health_Care_ID varchar2(20),
+=======
+	Health_Care_ID  varchar2(20),
+>>>>>>> ba1c8f982907257de85264eb2b9b73ae9bf662d6
 	Type 	       varchar2(25),
 	CONSTRAINT Type_Check check(Type in ( 'None', 'Governmental', 'Private')),
 	
+<<<<<<< HEAD
 	Employee_ID		varchar2(20),
 	Constraint Health_Care_fk 	Foreign Key (Employee_ID) 	REFERENCES Employee(Employee_ID),
+=======
+	Paitent_ID		varchar2(20),
+	Constraint Book_Keeper_fk 	Foreign Key (Paitent_ID) 	REFERENCES Paitent(Paitent_ID),
+>>>>>>> ba1c8f982907257de85264eb2b9b73ae9bf662d6
 	
 	constraint Health_Care_pk primary key (Health_Care_ID)
 );
