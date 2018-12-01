@@ -100,12 +100,8 @@ Create Table Midwives(
 	
 	Employee_ID			varchar2(20),
 	Constraint Midwives_fk 	Foreign Key (Employee_ID) 	REFERENCES Employee(Employee_ID),
-	
-<<<<<<< HEAD
+    
 	Constraint Midwives_pk Primary Key (MW_ID)
-=======
-	Constraint Medical_Technician_pk Primary Key (MW_ID)
->>>>>>> ba1c8f982907257de85264eb2b9b73ae9bf662d6
 );
 
 Create Table Physician(
@@ -175,21 +171,13 @@ Create Table Room(
 
 --Lauren
 create table healthcare(
-<<<<<<< HEAD
-	Health_Care_ID varchar2(20),
-=======
 	Health_Care_ID  varchar2(20),
->>>>>>> ba1c8f982907257de85264eb2b9b73ae9bf662d6
 	Type 	       varchar2(25),
-	CONSTRAINT Type_Check check(Type in ( 'None', 'Governmental', 'Private')),
+	CONSTRAINT Type_Check check(Type  = 'None' or Type = 'Governmental' or Type = 'Private'),
 	
-<<<<<<< HEAD
-	Employee_ID		varchar2(20),
-	Constraint Health_Care_fk 	Foreign Key (Employee_ID) 	REFERENCES Employee(Employee_ID),
-=======
-	Paitent_ID		varchar2(20),
-	Constraint Book_Keeper_fk 	Foreign Key (Paitent_ID) 	REFERENCES Paitent(Paitent_ID),
->>>>>>> ba1c8f982907257de85264eb2b9b73ae9bf662d6
+	patient_ID		varchar2(20),
+	Constraint healthcare_fk 	Foreign Key (patient_ID) 	REFERENCES patient(patient_ID),
+
 	
 	constraint Health_Care_pk primary key (Health_Care_ID)
 );
@@ -209,8 +197,8 @@ create table governmentalHealthCare(
 
 create table test(
 	test_ID   varchar2(20),
-	type	  varchar2(20),
-	result	  varchar2(50),
+	type	  varchar2(75),
+	result	  varchar2(75),
 	
 	Patient_ID		varchar2(20),
 	Constraint test_fk 	Foreign Key (Patient_ID) 	REFERENCES Patient(Patient_ID),
@@ -235,23 +223,33 @@ create table prescription(
 create table visit(
 	visit_ID  varchar2(20),
 	visit_date	  date,
-	type	  varchar2(20),
+	type	  varchar2(21),
 	
 	Patient_ID		varchar2(20),
 	Constraint visit_fk 	Foreign Key (Patient_ID) 	REFERENCES Patient(Patient_ID),
-	-- we can me these constrants
-	--walkin, (MAKE TABLE????)
-	--scheduled appointment (MAKE TABLE????)
-	--contraint visit_fk foreign key (visit_ID) references patient (patient_ID),
+	
+	Constraint visit_type_check check (
+	type = 'walkin' or
+	type = 'scheduled appointment'
+    ),
+    
+	/*
+	 we can me these constrants
+	walkin, (MAKE TABLE????)
+	scheduled appointment (MAKE TABLE????)
+	contraint visit_fk foreign key (visit_ID) references patient (patient_ID),
+	*/
 	constraint visit_pk primary key (visit_ID) 
 );
 
 create table sample(
 	sample_ID varchar2(20),
 	type	varchar2(20),
-	
+
     Patient_ID		varchar2(20),
 	Constraint sample_fk 	Foreign Key (Patient_ID) 	REFERENCES Patient(Patient_ID),
+	
+	
     
 	constraint sample_pk primary key (sample_ID)
 );
