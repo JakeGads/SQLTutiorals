@@ -1,11 +1,12 @@
 --drop
 --Jake
-Drop Table  Person 			CASCADE CONSTRAINTS;
+Drop Table  Person 			        CASCADE CONSTRAINTS;
 Drop Table  Employee 		    	CASCADE CONSTRAINTS;
 Drop Table  Nurse_Practitioner  	CASCADE CONSTRAINTS;
 Drop Table  Registered_Nurse    	CASCADE CONSTRAINTS;
 Drop Table  Pharmacist          	CASCADE CONSTRAINTS;
 Drop Table  Medical_Technician  	CASCADE CONSTRAINTS;
+Drop Table  Midwives              	CASCADE CONSTRAINTS;
 Drop Table  Physician           	CASCADE CONSTRAINTS;
 Drop Table  Office_Admin        	CASCADE CONSTRAINTS;
 Drop Table  Receptionist        	CASCADE CONSTRAINTS;
@@ -14,13 +15,16 @@ Drop Table  Bill                	CASCADE CONSTRAINTS;
 Drop Table  Room                	CASCADE CONSTRAINTS;
 --Lauren 
 drop table 	healthcare 			     cascade constraints;
+/*
 drop table 	privateHealthCare 		 cascade constraints;
 drop table 	governmentalHealthCare 	 cascade constraints;
+*/
 drop table 	test 				     cascade constraints;
 drop table 	prescription 		     cascade constraints;
 drop table 	patient 			     cascade constraints;
 drop table 	visit 				     cascade constraints;
 drop table 	sample 				     cascade constraints;
+
 
 --Jake
 --create table
@@ -95,9 +99,9 @@ Create Table Midwives(
 	MW_ID				varchar2(20),
 	
 	Employee_ID			varchar2(20),
-	Constraint Medical_Technician_fk 	Foreign Key (Employee_ID) 	REFERENCES Employee(Employee_ID),
+	Constraint Midwives_fk 	Foreign Key (Employee_ID) 	REFERENCES Employee(Employee_ID),
 	
-	Constraint Medical_Technician_pk Primary Key (MT_ID)
+	Constraint Midwives_pk Primary Key (MW_ID)
 );
 
 Create Table Physician(
@@ -140,8 +144,8 @@ Create Table Bill(
     Bill_ID     varchar2(20),
     Bill_Price  number,
 	
-    Paitent_ID		varchar2(20),
-	Constraint Bill_fk 	Foreign Key (Paitent_ID) 	REFERENCES Paitent(Paitent_ID),
+    Patient_ID		varchar2(20),
+	Constraint Bill_fk 	Foreign Key (Patient_ID) 	REFERENCES Patient(Patient_ID),
 	
     Constraint Bill_pk Primary Key (Bill_ID)
 );
@@ -167,20 +171,16 @@ Create Table Room(
 
 --Lauren
 create table healthcare(
-	Health_Care_ID primarykey varchar2(20),
+	Health_Care_ID varchar2(20),
 	Type 	       varchar2(25),
-	CONSTRAINT Type_Check check(
-	Type = 'None' or
-	Type = 'Private' or
-	Type = 'Governmental'
-	);
+	CONSTRAINT Type_Check check(Type in ( 'None', 'Governmental', 'Private')),
 	
 	Employee_ID		varchar2(20),
-	Constraint Book_Keeper_fk 	Foreign Key (Employee_ID) 	REFERENCES Employee(Employee_ID),
+	Constraint Health_Care_fk 	Foreign Key (Employee_ID) 	REFERENCES Employee(Employee_ID),
 	
 	constraint Health_Care_pk primary key (Health_Care_ID)
 );
-
+/*
 create table privateHealthCare(
 	PHC_ID  varchar2(20),
 	constraint PHC_pk primary key (PHC_ID)
@@ -192,14 +192,15 @@ create table governmentalHealthCare(
 	constraint GHC_pk primary key (GHC_ID)
 	constraint GHC_fk foreign key (Health_Care_ID)
 );
+*/
 
 create table test(
 	test_ID   varchar2(20),
 	type	  varchar2(20),
 	result	  varchar2(50),
 	
-	Paitent_ID		varchar2(20),
-	Constraint test_fk 	Foreign Key (Paitent_ID) 	REFERENCES Paitent(Paitent_ID),
+	Patient_ID		varchar2(20),
+	Constraint test_fk 	Foreign Key (Patient_ID) 	REFERENCES Patient(Patient_ID),
 	
 	constraint test_pk primary key (test_ID)
 );
@@ -212,20 +213,19 @@ create table prescription(
 	original_date	date,
 	filled_date	date,
 	
-	Paitent_ID		varchar2(20),
-	Constraint prescription_fk 	Foreign Key (Paitent_ID) 	REFERENCES Paitent(Paitent_ID),
+	Patient_ID		varchar2(20),
+	Constraint prescription_fk 	Foreign Key (Patient_ID) 	REFERENCES Patient(Patient_ID),
 	
-	constraint prescription_pk primary key (prescription_ID),
-	
+	constraint prescription_pk primary key (prescription_ID)
 );
 
 create table visit(
 	visit_ID  varchar2(20),
-	date	  date,
+	visit_date	  date,
 	type	  varchar2(20),
 	
-	Paitent_ID		varchar2(20),
-	Constraint visit_fk 	Foreign Key (Paitent_ID) 	REFERENCES Paitent(Paitent_ID),
+	Patient_ID		varchar2(20),
+	Constraint visit_fk 	Foreign Key (Patient_ID) 	REFERENCES Patient(Patient_ID),
 	-- we can me these constrants
 	--walkin, (MAKE TABLE????)
 	--scheduled appointment (MAKE TABLE????)
@@ -237,8 +237,8 @@ create table sample(
 	sample_ID varchar2(20),
 	type	varchar2(20),
 	
-	Paitent_ID		varchar2(20),
-	Constraint sample_fk 	Foreign Key (Paitent_ID) 	REFERENCES Paitent(Paitent_ID),
-	
+    Patient_ID		varchar2(20),
+	Constraint sample_fk 	Foreign Key (Patient_ID) 	REFERENCES Patient(Patient_ID),
+    
 	constraint sample_pk primary key (sample_ID)
 );
