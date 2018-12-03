@@ -22,4 +22,9 @@ Jake's Thoughts
     We might want to make these full tables with a bunch of foeign keys as far as I am concered 
 */
 
-Create View View_Patient_Monthly_Statement
+Create View v1 as 
+select 
+from bill b
+Inner Join patient p on p.patient_ID = b.patient_ID;
+
+select * from v1;
