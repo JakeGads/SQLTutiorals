@@ -143,16 +143,20 @@ Create Table Book_Keeper(
 Create Table Bill(
     Bill_ID     varchar2(20),
     Bill_Price  number,
+    
+    Patient_ID		varchar2(20),
+	Constraint Bill_fk 	Foreign Key (Patient_ID) 	REFERENCES Patient(Patient_ID),
+    
+    
 	--*
     Bill_date   date,
     --*
-    Bill_treatment VARCHAR2(25),
+    Bill_treatment VARCHAR2(35),
     --*
     AmountPaid  number,
     --*
     
-    Patient_ID		varchar2(20),
-	Constraint Bill_fk 	Foreign Key (Patient_ID) 	REFERENCES Patient(Patient_ID),
+    
 	
     Constraint Bill_pk Primary Key (Bill_ID)
 );
