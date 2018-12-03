@@ -21,26 +21,32 @@ Monthly_Activity_Report:
 Jake's Thoughts
     We might want to make these full tables with a bunch of foeign keys as far as I am concered 
 */
-Drop view Patient_Monthly_Statement;
-Drop View Operating_Room_Schedule;
+DROP VIEW patient_monthly_statement;
+
+DROP VIEW operating_room_schedule;
 --Jake
-Create View Patient_Monthly_Statement as 
-select 
-pe.NAME PATIENT_NAME,
-pe.PHONENUM PHONENUM,
-b.BILL_PRICE BILL_PRICE,
-b.BILL_DATE APPOINTMENT_DATE,
-b.BILL_TREATMENT TREATMENT,
-(b.BILL_PRICE - b.AMOUNTPAID) BALANCE_OWED
-from bill b
-Inner Join patient p on p.patient_ID = b.patient_ID
-Inner Join person pe on pe.person_ID = p.person_ID
-where (b.BILL_PRICE - b.AMOUNTPAID) > 0;
+
+CREATE VIEW patient_monthly_statement AS
+    SELECT
+        pe.name            patient_name,
+        pe.phonenum        phonenum,
+        b.bill_price       bill_price,
+        b.bill_date        appointment_date,
+        b.bill_treatment   treatment,
+        ( b.bill_price - b.amountpaid ) balance_owed
+    FROM
+        bill b
+        INNER JOIN patient p ON p.patient_id = b.patient_id
+        INNER JOIN person pe ON pe.person_id = p.person_id
+    WHERE
+        ( b.bill_price - b.amountpaid ) > 0;
 
 --Jake
-Create View Operating_Room_Schedule as
-select * from ;
 
 
-select * from Patient_Monthly_Statement;
-select * from Operating_Room_Schedule;
+
+
+SELECT
+    *
+FROM
+    patient_monthly_statement;
