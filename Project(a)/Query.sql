@@ -1,5 +1,5 @@
 /*
-Patient Monthly Statement:
+Patient_Monthly_Statement:
     Any patient who has an unpaid balance receives a statement that is compiled at the end of each month, listing all the 
     services provided that month, any payments received, and the balance due.
 Operating Room Schedule: 
@@ -21,10 +21,24 @@ Monthly Activity Report:
 Jake's Thoughts
     We might want to make these full tables with a bunch of foeign keys as far as I am concered 
 */
-
-Create View v1 as 
+Drop view Patient_Monthly_Statement;
+--Jake
+Create View Patient_Monthly_Statement as 
 select 
+pe.NAME PATIENT_NAME,
+pe.PHONENUM PHONENUM,
+b.BILL_PRICE BILL_PRICE,
+b.PATIENT_ID PATIENT_ID,
+b.BILL_DATE APPOINTMENT_DATE,
+b.BILL_TREATMENT TREATMENT,
+(b.BILL_PRICE - b.AMOUNTPAID) BALANCE_OWED
 from bill b
-Inner Join patient p on p.patient_ID = b.patient_ID;
+Inner Join patient p on p.patient_ID = b.patient_ID
+Inner Join person pe on pe.person_ID = p.person_ID
+where (b.BILL_PRICE - b.AMOUNTPAID) > 0;
 
-select * from v1;
+--Jake
+
+
+
+select * from Patient_Monthly_Statement;

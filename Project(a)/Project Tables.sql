@@ -264,3 +264,7 @@ create table sample(
     
 	constraint sample_pk primary key (sample_ID)
 );
+
+create table Operating_Room(
+
+);
