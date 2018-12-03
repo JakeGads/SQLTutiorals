@@ -13,6 +13,7 @@ Drop Table  Receptionist        	CASCADE CONSTRAINTS;
 Drop Table  Book_Keeper         	CASCADE CONSTRAINTS;
 Drop Table  Bill                	CASCADE CONSTRAINTS;
 Drop Table  Room                	CASCADE CONSTRAINTS;
+Drop Table  Room_Schedule           CASCADE CONSTRAINTS;
 --Lauren 
 drop table 	healthcare 			     cascade constraints;
 /*
@@ -265,6 +266,12 @@ create table sample(
 	constraint sample_pk primary key (sample_ID)
 );
 
-create table Operating_Room(
-
+create table Room_Schedule(
+    schedule_id     varchar2(20),
+    time            date,
+    
+    Room_ID		varchar2(20),
+	Constraint Room_Schedule_fk 	Foreign Key (Room_ID) 	REFERENCES Room(Room_ID),
+	
+    Constraint Room_Schedule_pk primary key (schedule_id)
 );
