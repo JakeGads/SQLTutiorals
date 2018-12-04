@@ -14,7 +14,7 @@ Drop Table  Book_Keeper         	CASCADE CONSTRAINTS;
 Drop Table  Bill                	CASCADE CONSTRAINTS;
 Drop Table  Room                	CASCADE CONSTRAINTS;
 --*
-Drop Table  Room_Schedule           CASCADE CONSTRAINTS;
+Drop Table  OR_Room_Schedule           CASCADE CONSTRAINTS;
 --Lauren 
 drop table 	healthcare 			     cascade constraints;
 /*
@@ -273,8 +273,9 @@ create table sample(
 
 --This is also by Jake
 --*
-create table Room_Schedule(
-    schedule_id           varchar2(20),
+create table OR_Room_Schedule(
+    OR_schedule_id           varchar2(20),
+    Notes                    varchar2(2000),
     
     visit_ID		varchar2(20),
 	Constraint Room_Schedule_fk0 	Foreign Key (visit_ID) 	REFERENCES visit(visit_ID),
@@ -282,5 +283,11 @@ create table Room_Schedule(
     Room_ID		varchar2(20),
 	Constraint Room_Schedule_fk1 	Foreign Key (Room_ID) 	REFERENCES Room(Room_ID),
 	
-    Constraint Room_Schedule_pk primary key (schedule_id)
+    Physician_ID		varchar2(20),
+	Constraint Room_Schedule_fk2 	Foreign Key (Physician_ID) 	REFERENCES Physician(Physician_ID),
+	
+    Registered_Nurse_ID		varchar2(20),
+	Constraint Room_Schedule_fk3 Foreign Key (Registered_Nurse_ID) 	REFERENCES Registered_Nurse(Registered_Nurse_ID),
+	
+    Constraint Room_Schedule_pk primary key (OR_schedule_id)
 );
