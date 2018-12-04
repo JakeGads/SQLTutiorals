@@ -236,6 +236,10 @@ create table prescription(
 create table visit(
 	visit_ID  varchar2(20),
 	visit_date	  date,
+    start_time            date,
+    end_time              date,
+    --*
+    reason      varchar2(20),
 	type	  varchar2(21),
 	
 	Patient_ID		varchar2(20),
@@ -271,15 +275,12 @@ create table sample(
 --*
 create table Room_Schedule(
     schedule_id           varchar2(20),
-    start_time            date,
-    end_time              date,
-    treatment             varchar2(35),
     
-    Room_ID		varchar2(20),
-	Constraint Room_Schedule_fk0 	Foreign Key (Room_ID) 	REFERENCES Room(Room_ID),
+    visit_ID		varchar2(20),
+	Constraint Room_Schedule_fk0 	Foreign Key (visit_ID) 	REFERENCES visit(visit_ID),
 	
-    Patient		varchar2(20),
-	Constraint Room_Schedule_f1 	Foreign Key (patient_id) 	REFERENCES patient(patient_ID),
-    
+    Room_ID		varchar2(20),
+	Constraint Room_Schedule_fk1 	Foreign Key (Room_ID) 	REFERENCES Room(Room_ID),
+	
     Constraint Room_Schedule_pk primary key (schedule_id)
 );
