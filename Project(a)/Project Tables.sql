@@ -13,6 +13,7 @@ Drop Table  Receptionist        	CASCADE CONSTRAINTS;
 Drop Table  Book_Keeper         	CASCADE CONSTRAINTS;
 Drop Table  Bill                	CASCADE CONSTRAINTS;
 Drop Table  Room                	CASCADE CONSTRAINTS;
+--*
 Drop Table  Room_Schedule           CASCADE CONSTRAINTS;
 --Lauren 
 drop table 	healthcare 			     cascade constraints;
@@ -29,7 +30,7 @@ drop table 	sample 				     cascade constraints;
 
 --Jake
 --create table
---will make 100
+--will make ~100
 Create Table Person(
 	Person_ID	varchar2(20),
 	Name		varchar2(30),
@@ -266,12 +267,19 @@ create table sample(
 	constraint sample_pk primary key (sample_ID)
 );
 
+--This is also by Jake
+--*
 create table Room_Schedule(
-    schedule_id     varchar2(20),
-    time            date,
+    schedule_id           varchar2(20),
+    start_time            date,
+    end_time              date,
+    treatment             varchar2(35),
     
     Room_ID		varchar2(20),
-	Constraint Room_Schedule_fk 	Foreign Key (Room_ID) 	REFERENCES Room(Room_ID),
+	Constraint Room_Schedule_fk0 	Foreign Key (Room_ID) 	REFERENCES Room(Room_ID),
 	
+    Patient		varchar2(20),
+	Constraint Room_Schedule_f1 	Foreign Key (patient_id) 	REFERENCES patient(patient_ID),
+    
     Constraint Room_Schedule_pk primary key (schedule_id)
 );

@@ -21,8 +21,8 @@ Monthly_Activity_Report:
 Jake's Thoughts
     We might want to make these full tables with a bunch of foeign keys as far as I am concered 
 */
-DROP VIEW patient_monthly_statement;
 
+DROP VIEW patient_monthly_statement;
 DROP VIEW operating_room_schedule;
 --Jake
 
@@ -33,7 +33,7 @@ CREATE VIEW patient_monthly_statement AS
         b.bill_price       bill_price,
         b.bill_date        appointment_date,
         b.bill_treatment   treatment,
-        ( b.bill_price - b.amountpaid ) balance_owed
+        (b.bill_price - b.amountpaid) balance_owed
     FROM
         bill b
         INNER JOIN patient p ON p.patient_id = b.patient_id
@@ -42,10 +42,22 @@ CREATE VIEW patient_monthly_statement AS
         ( b.bill_price - b.amountpaid ) > 0;
 
 --Jake
+Create View Operating_Room_Schedule as
+    select
+        room_schedule.START_TIME START_TIME,
+        room_schedule.END_TIME END_TIME,
+        room.ROOM_TYPE ROOM_TYPE,
+        room_schedule.treatment treatment
+    from
+        room_schedule
+        Inner Join room on room_schedule.room_id = room.room_id
+    where
+        room.room_type = 'Operating Room';
 
 
 
 
+--after building the views this will display
 SELECT
     *
 FROM
