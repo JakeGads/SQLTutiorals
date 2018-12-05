@@ -176,7 +176,7 @@ CREATE TABLE bill (
 
 CREATE TABLE room (
     room_id     VARCHAR2(20),
-    room_type   VARCHAR2(20),
+    room_type   VARCHAR2(25),
     CONSTRAINT room_check CHECK ( room_type = 'Pharmacy'
                                   OR room_type = 'Lab'
                                   OR room_type = 'Birthing Room'
@@ -243,9 +243,8 @@ CREATE TABLE prescription (
 
 CREATE TABLE visit (
     visit_id     VARCHAR2(20),
-    visit_date   DATE,
-    start_time   DATE,
-    end_time     DATE,
+    start_time   TimeStamp,
+    end_time     TimeStamp,
     --*
     reason       VARCHAR2(20),
     type         VARCHAR2(21),
