@@ -21,8 +21,8 @@ Monthly_Activity_Report:
 Jake's Thoughts
     We might want to make these full tables with a bunch of foeign keys as far as I am concered 
 */
-
 DROP VIEW patient_monthly_statement;
+
 DROP VIEW operating_room_schedule;
 --Jake
 
@@ -33,7 +33,7 @@ CREATE VIEW patient_monthly_statement AS
         b.bill_price       bill_price,
         b.bill_date        appointment_date,
         b.bill_treatment   treatment,
-        (b.bill_price - b.amountpaid) balance_owed
+        ( b.bill_price - b.amountpaid ) balance_owed
     FROM
         bill b
         INNER JOIN patient p ON p.patient_id = b.patient_id
@@ -42,18 +42,19 @@ CREATE VIEW patient_monthly_statement AS
         ( b.bill_price - b.amountpaid ) > 0;
 
 --Jake
-Create View Operating_Room_Schedule as
-    select
-        room.ROOM_TYPE ROOM_TYPE,
-        visit.visit_date    treatment_date,
-        visit.start_time    start_time,
-        visit.end_time      end_time,
-        visit.reason        treatment
-    from
+
+CREATE VIEW operating_room_schedule AS
+    SELECT
+        room.room_type     room_type,
+        visit.visit_date   treatment_date,
+        visit.start_time   start_time,
+        visit.end_time     end_time,
+        visit.reason       treatment
+    FROM
         room_schedule
-        Inner Join room on room_schedule.room_id = room.room_id
-        Inner Join visit on room_schedule.visit_id = visit.visit_ID
-    where
+        INNER JOIN room ON room_schedule.room_id = room.room_id
+        INNER JOIN visit ON room_schedule.visit_id = visit.visit_id
+    WHERE
         room.room_type = 'Operating Room';
 
 --Jake
@@ -62,39 +63,50 @@ Operating_Room_Log:
     This records information about the surgeries actually performed on a given day, including identification of the patient, 
     surgeon, and nurse, and notations and observations about the surgery.
 */
-Create View Operating_Room_Log as
-    select
-        room.ROOM_TYPE              ROOM_TYPE,
-        visit.visit_date            treatment_date,
-        visit.start_time            start_time,
-        visit.end_time              end_time,
-        visit.reason                treatment,
-        patient.patient_id          patient_id,
-        surgee.name                 patient_name,
-        surgeon2.physician_id       surgeon_id,
-        surgeon.name                surgeon_name,
-        nurse2.registered_nurse_id  Nurse_ID,
-        nurse.name                  NurseName
-    from
-        OR_room_schedule
-        Inner Join room on OR_room_schedule.room_id = room.room_id
-        Inner Join visit on OR_room_schedule.visit_id = visit.visit_ID
-        
-        Inner Join patient on visit.patient_id = patient.patient_id
-        Inner Join person surgee on surgee.person_id = patient.person_id
-        
-        Inner Join Physician surgeon2 on surgeon2.physician_id = OR_room_schedule.physician_id
-        Inner Join Employee surgeon1 on surgeon1.employee_id = surgeon2.employee_id
-        Inner Join Person surgeon on surgeon1.person_id = surgeon.person_id
-        
-        Inner Join Registered_Nurse nurse2 on nurse2.Registered_Nurse_id = OR_room_schedule.Registered_Nurse_id
-        Inner Join Employee nurse1 on nurse1.employee_id = surgeon2.nurse_id
-        Inner Join Person nurse on nurse1.person_id = nurse.person_id
-    where
+
+CREATE VIEW operating_room_log AS
+    SELECT
+        room.room_type               room_type,
+        visit.visit_date             treatment_date,
+        visit.start_time             start_time,
+        visit.end_time               end_time,
+        visit.reason                 treatment,
+        patient.patient_id           patient_id,
+        surgee.name                  patient_name,
+        surgeon2.physician_id        surgeon_id,
+        surgeon.name                 surgeon_name,
+        nurse2.registered_nurse_id   nurse_id,
+        nurse.name                   nurse_name
+    FROM
+        or_room_schedule
+        INNER JOIN room ON or_room_schedule.room_id = room.room_id
+        INNER JOIN visit ON or_room_schedule.visit_id = visit.visit_id
+        INNER JOIN patient ON visit.patient_id = patient.patient_id
+        INNER JOIN person surgee ON surgee.person_id = patient.person_id
+        INNER JOIN physician surgeon2 ON surgeon2.physician_id = or_room_schedule.physician_id
+        INNER JOIN employee surgeon1 ON surgeon1.employee_id = surgeon2.employee_id
+        INNER JOIN person surgeon ON surgeon1.person_id = surgeon.person_id
+        INNER JOIN registered_nurse nurse2 ON nurse2.registered_nurse_id = or_room_schedule.registered_nurse_id
+        INNER JOIN employee nurse1 ON nurse1.employee_id = surgeon2.nurse_id
+        INNER JOIN person nurse ON nurse1.person_id = nurse.person_id
+    WHERE
         room.room_type = 'Operating Room';
 
 
 
 --after building the views this will display
-SELECT PATIENT_NAME , PHONENUM , BILL_PRICE , APPOINTMENT_DATE , TREATMENT , BALANCE_OWED FROM patient_monthly_statement;
-select * from operating_room_schedule;
+
+SELECT
+    patient_name,
+    phonenum,
+    bill_price,
+    appointment_date,
+    treatment,
+    balance_owed
+FROM
+    patient_monthly_statement;
+
+SELECT
+    *
+FROM
+    operating_room_schedule;

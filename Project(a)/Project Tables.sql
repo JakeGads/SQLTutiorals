@@ -1,198 +1,207 @@
 --drop
 --Jake
-Drop Table  Person 			        CASCADE CONSTRAINTS;
-Drop Table  Employee 		    	CASCADE CONSTRAINTS;
-Drop Table  Nurse_Practitioner  	CASCADE CONSTRAINTS;
-Drop Table  Registered_Nurse    	CASCADE CONSTRAINTS;
-Drop Table  Pharmacist          	CASCADE CONSTRAINTS;
-Drop Table  Medical_Technician  	CASCADE CONSTRAINTS;
-Drop Table  Midwives              	CASCADE CONSTRAINTS;
-Drop Table  Physician           	CASCADE CONSTRAINTS;
-Drop Table  Office_Admin        	CASCADE CONSTRAINTS;
-Drop Table  Receptionist        	CASCADE CONSTRAINTS;
-Drop Table  Book_Keeper         	CASCADE CONSTRAINTS;
-Drop Table  Bill                	CASCADE CONSTRAINTS;
-Drop Table  Room                	CASCADE CONSTRAINTS;
+DROP TABLE person CASCADE CONSTRAINTS;
+
+DROP TABLE employee CASCADE CONSTRAINTS;
+
+DROP TABLE nurse_practitioner CASCADE CONSTRAINTS;
+
+DROP TABLE registered_nurse CASCADE CONSTRAINTS;
+
+DROP TABLE pharmacist CASCADE CONSTRAINTS;
+
+DROP TABLE medical_technician CASCADE CONSTRAINTS;
+
+DROP TABLE midwives CASCADE CONSTRAINTS;
+
+DROP TABLE physician CASCADE CONSTRAINTS;
+
+DROP TABLE office_admin CASCADE CONSTRAINTS;
+
+DROP TABLE receptionist CASCADE CONSTRAINTS;
+
+DROP TABLE book_keeper CASCADE CONSTRAINTS;
+
+DROP TABLE bill CASCADE CONSTRAINTS;
+
+DROP TABLE room CASCADE CONSTRAINTS;
 --*
-Drop Table  OR_Room_Schedule           CASCADE CONSTRAINTS;
+
+DROP TABLE or_room_schedule CASCADE CONSTRAINTS;
 --Lauren 
-drop table 	healthcare 			     cascade constraints;
+
+DROP TABLE healthcare CASCADE CONSTRAINTS;
 /*
 drop table 	privateHealthCare 		 cascade constraints;
 drop table 	governmentalHealthCare 	 cascade constraints;
 */
-drop table 	test 				     cascade constraints;
-drop table 	prescription 		     cascade constraints;
-drop table 	patient 			     cascade constraints;
-drop table 	visit 				     cascade constraints;
-drop table 	sample 				     cascade constraints;
+
+DROP TABLE test CASCADE CONSTRAINTS;
+
+DROP TABLE prescription CASCADE CONSTRAINTS;
+
+DROP TABLE patient CASCADE CONSTRAINTS;
+
+DROP TABLE visit CASCADE CONSTRAINTS;
+
+DROP TABLE sample CASCADE CONSTRAINTS;
 
 
 --Jake
 --create table
 --will make ~100
-Create Table Person(
-	Person_ID	varchar2(20),
-	Name		varchar2(30),
-	Street		varchar2(30),
-    City        varchar2(30),
-    State       varchar2(30),
-    Zip         varchar2(30),
-	PhoneNum	varchar2(30),
-	
-	Constraint Person_pk Primary Key (Person_ID)
+
+CREATE TABLE person (
+    person_id   VARCHAR2(20),
+    name        VARCHAR2(30),
+    street      VARCHAR2(30),
+    city        VARCHAR2(30),
+    state       VARCHAR2(30),
+    zip         VARCHAR2(30),
+    phonenum    VARCHAR2(30),
+    CONSTRAINT person_pk PRIMARY KEY ( person_id )
 );
 
 --This is also Lauren's but its been moved up here becuase it make sense for it to be here
-create table patient(
-	patient_ID varchar2(20),
-	Person_ID		varchar2(20),
-	Constraint patient_fk 	Foreign Key (Person_ID) 	REFERENCES Person(Person_ID),
-	Constraint patient_pk primary key (patient_ID)
+
+CREATE TABLE patient (
+    patient_id   VARCHAR2(20),
+    person_id    VARCHAR2(20),
+    CONSTRAINT patient_fk FOREIGN KEY ( person_id )
+        REFERENCES person ( person_id ),
+    CONSTRAINT patient_pk PRIMARY KEY ( patient_id )
 );
 
-Create Table Employee(
-	Employee_ID		varchar2(20),
-	
-	Person_ID		varchar2(20),
-	Constraint Employee_fk 	Foreign Key (Person_ID) 	REFERENCES Person(Person_ID),
-	
-	Constraint Employee_pk 	Primary Key (Employee_ID)
-	
+CREATE TABLE employee (
+    employee_id   VARCHAR2(20),
+    person_id     VARCHAR2(20),
+    CONSTRAINT employee_fk FOREIGN KEY ( person_id )
+        REFERENCES person ( person_id ),
+    CONSTRAINT employee_pk PRIMARY KEY ( employee_id )
 );
 
-Create Table Nurse_practitioner(
-	NP_ID		varchar2(20),
-	
-	Employee_ID		varchar2(20),
-	Constraint Nurse_practitioner_fk 	Foreign Key (Employee_ID) 	REFERENCES Employee(Employee_ID),
-	
-	Constraint Nurse_practitioner_pk Primary Key (NP_ID)
+CREATE TABLE nurse_practitioner (
+    np_id         VARCHAR2(20),
+    employee_id   VARCHAR2(20),
+    CONSTRAINT nurse_practitioner_fk FOREIGN KEY ( employee_id )
+        REFERENCES employee ( employee_id ),
+    CONSTRAINT nurse_practitioner_pk PRIMARY KEY ( np_id )
 );
 
-Create Table Registered_Nurse(
-	Registered_Nurse_ID		varchar2(20),
-	
-	Employee_ID		varchar2(20),
-	Constraint Registered_Nurse_fk 	Foreign Key (Employee_ID) 	REFERENCES Employee(Employee_ID),
-	
-	Constraint Registered_Nurse_pk Primary Key (Registered_Nurse_ID)
+CREATE TABLE registered_nurse (
+    registered_nurse_id   VARCHAR2(20),
+    employee_id           VARCHAR2(20),
+    CONSTRAINT registered_nurse_fk FOREIGN KEY ( employee_id )
+        REFERENCES employee ( employee_id ),
+    CONSTRAINT registered_nurse_pk PRIMARY KEY ( registered_nurse_id )
 );
 
-Create Table Pharmacist(
-	Pharmacist_ID		varchar2(20),
-	
-	Employee_ID			varchar2(20),
-	Constraint Pharmacist_fk 	Foreign Key (Employee_ID) 	REFERENCES Employee(Employee_ID),
-	
-	Constraint Pharmacist_pk Primary Key (Pharmacist_ID)
+CREATE TABLE pharmacist (
+    pharmacist_id   VARCHAR2(20),
+    employee_id     VARCHAR2(20),
+    CONSTRAINT pharmacist_fk FOREIGN KEY ( employee_id )
+        REFERENCES employee ( employee_id ),
+    CONSTRAINT pharmacist_pk PRIMARY KEY ( pharmacist_id )
 );
 
-Create Table Medical_Technician(
-	MT_ID				varchar2(20),
-	
-	Employee_ID		varchar2(20),
-	Constraint Medical_Technician_fk 	Foreign Key (Employee_ID) 	REFERENCES Employee(Employee_ID),
-	
-	Constraint Medical_Technician_pk Primary Key (MT_ID)
+CREATE TABLE medical_technician (
+    mt_id         VARCHAR2(20),
+    employee_id   VARCHAR2(20),
+    CONSTRAINT medical_technician_fk FOREIGN KEY ( employee_id )
+        REFERENCES employee ( employee_id ),
+    CONSTRAINT medical_technician_pk PRIMARY KEY ( mt_id )
 );
 
-Create Table Midwives(
-	MW_ID				varchar2(20),
-	
-	Employee_ID			varchar2(20),
-	Constraint Midwives_fk 	Foreign Key (Employee_ID) 	REFERENCES Employee(Employee_ID),
-    
-	Constraint Midwives_pk Primary Key (MW_ID)
+CREATE TABLE midwives (
+    mw_id         VARCHAR2(20),
+    employee_id   VARCHAR2(20),
+    CONSTRAINT midwives_fk FOREIGN KEY ( employee_id )
+        REFERENCES employee ( employee_id ),
+    CONSTRAINT midwives_pk PRIMARY KEY ( mw_id )
 );
 
-Create Table Physician(
-	Physician_ID		varchar2(20),
-    Employee_ID		varchar2(20),
-	Speciality          varchar2(20),
-	Constraint Physician_fk 	Foreign Key (Employee_ID) 	REFERENCES Employee(Employee_ID),
-    Constraint Speciality_Check check (speciality = 'Physician' or speciality = 'Surgeon' or speciality = 'Pediatrician'),
-	Constraint Physician_pk Primary Key (Physician_ID)
+CREATE TABLE physician (
+    physician_id   VARCHAR2(20),
+    employee_id    VARCHAR2(20),
+    speciality     VARCHAR2(20),
+    CONSTRAINT physician_fk FOREIGN KEY ( employee_id )
+        REFERENCES employee ( employee_id ),
+    CONSTRAINT speciality_check CHECK ( speciality = 'Physician'
+                                        OR speciality = 'Surgeon'
+                                        OR speciality = 'Pediatrician' ),
+    CONSTRAINT physician_pk PRIMARY KEY ( physician_id )
 );
 
-Create Table Office_Admin(
-    OA_ID               varchar2(20),
-	
-	Employee_ID		varchar2(20),
-	Constraint Office_Admin_fk 	Foreign Key (Employee_ID) 	REFERENCES Employee(Employee_ID),
-	
-    Constraint Office_Admin_pk Primary Key (OA_ID)
+CREATE TABLE office_admin (
+    oa_id         VARCHAR2(20),
+    employee_id   VARCHAR2(20),
+    CONSTRAINT office_admin_fk FOREIGN KEY ( employee_id )
+        REFERENCES employee ( employee_id ),
+    CONSTRAINT office_admin_pk PRIMARY KEY ( oa_id )
 );
 
-Create Table Receptionist(
-    R_ID                varchar2(20),
-	
-	Employee_ID		varchar2(20),	
-	Constraint Receptionist_fk 	Foreign Key (Employee_ID) 	REFERENCES Employee(Employee_ID),
-	
-    Constraint Receptionist_pk Primary Key (R_ID)
+CREATE TABLE receptionist (
+    r_id          VARCHAR2(20),
+    employee_id   VARCHAR2(20),
+    CONSTRAINT receptionist_fk FOREIGN KEY ( employee_id )
+        REFERENCES employee ( employee_id ),
+    CONSTRAINT receptionist_pk PRIMARY KEY ( r_id )
 );
 
-Create Table Book_Keeper(
-    Book_Keeper_ID               varchar2(20),
-	
-	Employee_ID		varchar2(20),
-	Constraint Book_Keeper_fk 	Foreign Key (Employee_ID) 	REFERENCES Employee(Employee_ID),
-	
-    Constraint Book_Keeper Primary Key (Book_Keeper_ID)
+CREATE TABLE book_keeper (
+    book_keeper_id   VARCHAR2(20),
+    employee_id      VARCHAR2(20),
+    CONSTRAINT book_keeper_fk FOREIGN KEY ( employee_id )
+        REFERENCES employee ( employee_id ),
+    CONSTRAINT book_keeper PRIMARY KEY ( book_keeper_id )
 );
 
-Create Table Bill(
-    Bill_ID     varchar2(20),
-    Bill_Price  number,
-    
-    Patient_ID		varchar2(20),
-	Constraint Bill_fk 	Foreign Key (Patient_ID) 	REFERENCES Patient(Patient_ID),
+CREATE TABLE bill (
+    bill_id          VARCHAR2(20),
+    bill_price       NUMBER,
+    patient_id       VARCHAR2(20),
+    CONSTRAINT bill_fk FOREIGN KEY ( patient_id )
+        REFERENCES patient ( patient_id ),
     
     
 	--*
-    Bill_date   date,
+    bill_date        DATE,
     --*
-    Bill_treatment VARCHAR2(35),
+    bill_treatment   VARCHAR2(35),
     --*
-    AmountPaid  number,
+    amountpaid       NUMBER,
     --*
-    
-    
-	
-    Constraint Bill_pk Primary Key (Bill_ID)
+    CONSTRAINT bill_pk PRIMARY KEY ( bill_id )
 );
 
-Create Table Room(
-    Room_ID     varchar2(20),
-    Room_Type    varchar2(20),
-    
-    Constraint Room_Check check (
-    Room_Type = 'Pharmacy' or 
-    Room_Type = 'Lab' or 
-    Room_Type = 'Birthing Room' or
-    Room_Type = 'Operating Room' or
-    Room_Type = 'Consultation Room' or
-    Room_Type = 'Examination Room' or
-    Room_Type = 'Nurses Station' or
-    Room_Type = 'Administrative Office' or
-    Room_Type = 'Waiting Room' or
-    Room_Type = 'Recovery Room'
-    ),
-    Constraint Room_pk Primary Key (Room_ID)
+CREATE TABLE room (
+    room_id     VARCHAR2(20),
+    room_type   VARCHAR2(20),
+    CONSTRAINT room_check CHECK ( room_type = 'Pharmacy'
+                                  OR room_type = 'Lab'
+                                  OR room_type = 'Birthing Room'
+                                  OR room_type = 'Operating Room'
+                                  OR room_type = 'Consultation Room'
+                                  OR room_type = 'Examination Room'
+                                  OR room_type = 'Nurses Station'
+                                  OR room_type = 'Administrative Office'
+                                  OR room_type = 'Waiting Room'
+                                  OR room_type = 'Recovery Room' ),
+    CONSTRAINT room_pk PRIMARY KEY ( room_id )
 );
 
 --Lauren
-create table healthcare(
-	Health_Care_ID  varchar2(20),
-	Type 	       varchar2(25),
-	CONSTRAINT Type_Check check(Type  = 'None' or Type = 'Governmental' or Type = 'Private'),
-	
-	patient_ID		varchar2(20),
-	Constraint healthcare_fk 	Foreign Key (patient_ID) 	REFERENCES patient(patient_ID),
 
-	
-	constraint Health_Care_pk primary key (Health_Care_ID)
+CREATE TABLE healthcare (
+    health_care_id   VARCHAR2(20),
+    type             VARCHAR2(25),
+    CONSTRAINT type_check CHECK ( type = 'None'
+                                  OR type = 'Governmental'
+                                  OR type = 'Private' ),
+    patient_id       VARCHAR2(20),
+    CONSTRAINT healthcare_fk FOREIGN KEY ( patient_id )
+        REFERENCES patient ( patient_id ),
+    CONSTRAINT health_care_pk PRIMARY KEY ( health_care_id )
 );
 /*
 create table privateHealthCare(
@@ -208,47 +217,43 @@ create table governmentalHealthCare(
 );
 */
 
-create table test(
-	test_ID   varchar2(20),
-	type	  varchar2(75),
-	result	  varchar2(75),
-	
-	Patient_ID		varchar2(20),
-	Constraint test_fk 	Foreign Key (Patient_ID) 	REFERENCES Patient(Patient_ID),
-	
-	constraint test_pk primary key (test_ID)
+CREATE TABLE test (
+    test_id      VARCHAR2(20),
+    type         VARCHAR2(75),
+    result       VARCHAR2(75),
+    patient_id   VARCHAR2(20),
+    CONSTRAINT test_fk FOREIGN KEY ( patient_id )
+        REFERENCES patient ( patient_id ),
+    CONSTRAINT test_pk PRIMARY KEY ( test_id )
 );
 
 --Talk about this one
-create table prescription(
-	prescription_ID varchar2(20),
-	medicine_type 	varchar2(20),
-	amount		int,
-	original_date	date,
-	filled_date	date,
-	
-	Patient_ID		varchar2(20),
-	Constraint prescription_fk 	Foreign Key (Patient_ID) 	REFERENCES Patient(Patient_ID),
-	
-	constraint prescription_pk primary key (prescription_ID)
+
+CREATE TABLE prescription (
+    prescription_id   VARCHAR2(20),
+    medicine_type     VARCHAR2(20),
+    amount            INT,
+    original_date     DATE,
+    filled_date       DATE,
+    patient_id        VARCHAR2(20),
+    CONSTRAINT prescription_fk FOREIGN KEY ( patient_id )
+        REFERENCES patient ( patient_id ),
+    CONSTRAINT prescription_pk PRIMARY KEY ( prescription_id )
 );
 
-create table visit(
-	visit_ID  varchar2(20),
-	visit_date	  date,
-    start_time            date,
-    end_time              date,
+CREATE TABLE visit (
+    visit_id     VARCHAR2(20),
+    visit_date   DATE,
+    start_time   DATE,
+    end_time     DATE,
     --*
-    reason      varchar2(20),
-	type	  varchar2(21),
-	
-	Patient_ID		varchar2(20),
-	Constraint visit_fk 	Foreign Key (Patient_ID) 	REFERENCES Patient(Patient_ID),
-	
-	Constraint visit_type_check check (
-	type = 'walkin' or
-	type = 'scheduled appointment'
-    ),
+    reason       VARCHAR2(20),
+    type         VARCHAR2(21),
+    patient_id   VARCHAR2(20),
+    CONSTRAINT visit_fk FOREIGN KEY ( patient_id )
+        REFERENCES patient ( patient_id ),
+    CONSTRAINT visit_type_check CHECK ( type = 'walkin'
+                                        OR type = 'scheduled appointment' ),
     
 	/*
 	 we can me these constrants
@@ -256,38 +261,35 @@ create table visit(
 	scheduled appointment (MAKE TABLE????)
 	contraint visit_fk foreign key (visit_ID) references patient (patient_ID),
 	*/
-	constraint visit_pk primary key (visit_ID) 
+    CONSTRAINT visit_pk PRIMARY KEY ( visit_id )
 );
 
-create table sample(
-	sample_ID varchar2(20),
-	type	varchar2(20),
-
-    Patient_ID		varchar2(20),
-	Constraint sample_fk 	Foreign Key (Patient_ID) 	REFERENCES Patient(Patient_ID),
-	
-	
-    
-	constraint sample_pk primary key (sample_ID)
+CREATE TABLE sample (
+    sample_id    VARCHAR2(20),
+    type         VARCHAR2(20),
+    patient_id   VARCHAR2(20),
+    CONSTRAINT sample_fk FOREIGN KEY ( patient_id )
+        REFERENCES patient ( patient_id ),
+    CONSTRAINT sample_pk PRIMARY KEY ( sample_id )
 );
 
 --This is also by Jake
 --*
-create table OR_Room_Schedule(
-    OR_schedule_id           varchar2(20),
-    Notes                    varchar2(2000),
-    
-    visit_ID		varchar2(20),
-	Constraint Room_Schedule_fk0 	Foreign Key (visit_ID) 	REFERENCES visit(visit_ID),
-	
-    Room_ID		varchar2(20),
-	Constraint Room_Schedule_fk1 	Foreign Key (Room_ID) 	REFERENCES Room(Room_ID),
-	
-    Physician_ID		varchar2(20),
-	Constraint Room_Schedule_fk2 	Foreign Key (Physician_ID) 	REFERENCES Physician(Physician_ID),
-	
-    Registered_Nurse_ID		varchar2(20),
-	Constraint Room_Schedule_fk3 Foreign Key (Registered_Nurse_ID) 	REFERENCES Registered_Nurse(Registered_Nurse_ID),
-	
-    Constraint Room_Schedule_pk primary key (OR_schedule_id)
+
+CREATE TABLE or_room_schedule (
+    or_schedule_id        VARCHAR2(20),
+    notes                 VARCHAR2(2000),
+    visit_id              VARCHAR2(20),
+    CONSTRAINT room_schedule_fk0 FOREIGN KEY ( visit_id )
+        REFERENCES visit ( visit_id ),
+    room_id               VARCHAR2(20),
+    CONSTRAINT room_schedule_fk1 FOREIGN KEY ( room_id )
+        REFERENCES room ( room_id ),
+    physician_id          VARCHAR2(20),
+    CONSTRAINT room_schedule_fk2 FOREIGN KEY ( physician_id )
+        REFERENCES physician ( physician_id ),
+    registered_nurse_id   VARCHAR2(20),
+    CONSTRAINT room_schedule_fk3 FOREIGN KEY ( registered_nurse_id )
+        REFERENCES registered_nurse ( registered_nurse_id ),
+    CONSTRAINT room_schedule_pk PRIMARY KEY ( or_schedule_id )
 );
