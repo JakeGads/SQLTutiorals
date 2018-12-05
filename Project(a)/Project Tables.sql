@@ -246,7 +246,7 @@ CREATE TABLE visit (
     start_time   TimeStamp,
     end_time     TimeStamp,
     --*
-    reason       VARCHAR2(20),
+    reason       VARCHAR2(50),
     type         VARCHAR2(21),
     patient_id   VARCHAR2(20),
     CONSTRAINT visit_fk FOREIGN KEY ( patient_id )
