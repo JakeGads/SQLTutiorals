@@ -24,6 +24,8 @@ Jake's Thoughts
 DROP VIEW patient_monthly_statement;
 
 DROP VIEW operating_room_schedule;
+
+DROP VIEW operating_room_log;
 --Jake
 
 CREATE VIEW patient_monthly_statement AS
@@ -46,16 +48,15 @@ CREATE VIEW patient_monthly_statement AS
 CREATE VIEW operating_room_schedule AS
     SELECT
         room.room_type     room_type,
-        visit.visit_date   treatment_date,
         visit.start_time   start_time,
         visit.end_time     end_time,
         visit.reason       treatment
     FROM
-        room_schedule
-        INNER JOIN room ON room_schedule.room_id = room.room_id
-        INNER JOIN visit ON room_schedule.visit_id = visit.visit_id
+        or_room_schedule
+        INNER JOIN room ON or_room_schedule.room_id = room.room_id
+        INNER JOIN visit ON or_room_schedule.visit_id = visit.visit_id
     WHERE
-        room.room_type = 'Operating Room';
+        room.room_type = 'Operating Room' and (visit.start_time > TIMESTAMP '2012-12-12 00:00:00' and visit.start_time < TIMESTAMP '2012-12-12 23:59:00' );
 
 --Jake
 /*
@@ -67,7 +68,6 @@ Operating_Room_Log:
 CREATE VIEW operating_room_log AS
     SELECT
         room.room_type               room_type,
-        visit.visit_date             treatment_date,
         visit.start_time             start_time,
         visit.end_time               end_time,
         visit.reason                 treatment,
@@ -87,10 +87,10 @@ CREATE VIEW operating_room_log AS
         INNER JOIN employee surgeon1 ON surgeon1.employee_id = surgeon2.employee_id
         INNER JOIN person surgeon ON surgeon1.person_id = surgeon.person_id
         INNER JOIN registered_nurse nurse2 ON nurse2.registered_nurse_id = or_room_schedule.registered_nurse_id
-        INNER JOIN employee nurse1 ON nurse1.employee_id = surgeon2.nurse_id
+        INNER JOIN employee nurse1 ON nurse1.employee_id = nurse2.employee_id
         INNER JOIN person nurse ON nurse1.person_id = nurse.person_id
     WHERE
-        room.room_type = 'Operating Room';
+        room.room_type = 'Operating Room' and (visit.start_time > TIMESTAMP '2012-12-12 00:00:00' and visit.start_time < TIMESTAMP '2012-12-12 23:59:00' );
 
 
 
@@ -107,6 +107,23 @@ FROM
     patient_monthly_statement;
 
 SELECT
-    *
+    room_type,
+    start_time,
+    end_time,
+    treatment
 FROM
     operating_room_schedule;
+
+SELECT
+    room_type,
+    start_time,
+    end_time,
+    treatment,
+    patient_id,
+    patient_name,
+    surgeon_id,
+    surgeon_name,
+    nurse_id,
+    nurse_name
+FROM
+    operating_room_log;
