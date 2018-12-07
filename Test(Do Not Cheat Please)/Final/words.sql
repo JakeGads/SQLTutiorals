@@ -79352,13 +79352,16 @@ Insert Into num values (5);
 Insert Into num values (6);
 Insert Into num values (7);
 Insert Into num values (8);
-
+--1
 select count(*) from ospd_words where (word like 'g%' or word like '%g');
+--2
 select count(*) from ospd_words where (length(word) = 4);
+--3
 select * from ospd_words  where (word like '%w%' and word like '%x%') order by word asc;
+--4
 select * from ospd_words  where (word like '%q%' and word not like '%qu%') order by word asc;
 
 
 
-
+--6
 select * from ospd_words where (word like '%smart%');

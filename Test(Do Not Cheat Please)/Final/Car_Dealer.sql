@@ -12,7 +12,7 @@ Create Table Cars (
     color   varChar2(25),
     price   number,
     
-    Constraint Cars_pk Primary Key (carid, carname)
+    Constraint Cars_pk Primary Key (carid)
 );
 
 Create Table Persons (
