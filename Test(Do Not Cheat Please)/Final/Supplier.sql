@@ -1644,12 +1644,15 @@ INSERT INTO order_t VALUES (
     919,
     626
 );
+--3
 
 SELECT UNIQUE
     part.name
 FROM
     order_t
     INNER JOIN part ON order_t.partid = part.id;
+
+--4
 
 SELECT UNIQUE
     supplier.name
@@ -1661,26 +1664,21 @@ WHERE
     part.color = 'blue'
     OR part.color = 'yellow';
 
---return    
+--5 return    
 
 SELECT
-contractor CONTRACTOR
-FROM
-    (
-        SELECT
-            contractor.name   contractor,
-            SUM(project.budget)
-        FROM
-            contractor
-            INNER JOIN project ON project.cid = contractor.id
-        ORDER BY
-            project.budget DESC
-    )
-WHERE
-    ROWNUM = 1;
-
+    sum(budget)
+    from
+    project
+    Inner Join contractor on project.cid = contractor.id
+    
+    
+    
+;
+--6
 SELECT
-    *
+    id           project_id,
+    contractor   contractor
 FROM
     (
         SELECT
@@ -1695,6 +1693,8 @@ FROM
     )
 WHERE
     ROWNUM = 1;
+
+--7
 
 SELECT
     contractor.name   contractor
