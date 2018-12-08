@@ -1663,15 +1663,21 @@ WHERE
 
 --return    
 
-SELECT UNIQUE
-    contractor.name
+SELECT
+contractor CONTRACTOR
 FROM
-    contractor
-    INNER JOIN project ON project.cid = contractor.id
+    (
+        SELECT
+            contractor.name   contractor,
+            SUM(project.budget)
+        FROM
+            contractor
+            INNER JOIN project ON project.cid = contractor.id
+        ORDER BY
+            project.budget DESC
+    )
 WHERE
-    ROWNUM = 1
-ORDER BY
-    SUM(project.budget) DESC;
+    ROWNUM = 1;
 
 SELECT
     *
