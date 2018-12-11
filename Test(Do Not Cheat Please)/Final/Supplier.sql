@@ -1666,16 +1666,9 @@ WHERE
 
 --5 return    
 
-SELECT
-    sum(budget)
-    from
-    project
-    Inner Join contractor on project.cid = contractor.id
-    
-    
-    
-;
+
 --6
+
 SELECT
     id           project_id,
     contractor   contractor
